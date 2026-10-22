@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{# @var location \App\Entity\Location #}
+{# @var measurements \App\Entity\Measurement[] #}
+
+{% block title %}Weather in {{ location.city }}, {{ location.country }}{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Weather in {{ location.city }}, {{ location.country }}</h1>
+
+        <h2>Pomiary:</h2>
+        <ul>
+            {% for measurement in measurements %}
+                <li>
+                    <strong>{{ measurement.date|date('d.m.Y') }}</strong>:
+                    {{ measurement.celsius }}&deg;C,
+                    Wilgotność: {{ measurement.humidity }}%,
+                    Ciśnienie: {{ measurement.pressure }} hPa,
+                    Wiatr: {{ measurement.windSpeed }} km/h
+                </li>
+            {% else %}
+                <li>Brak pomiarów dla tej lokacji.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Alerty pogodowe:</h2>
+        <ul>
+            {% for alert in location.alerts %}
+                <li>
+                    <strong>{{ alert.title }}</strong> (Poziom: {{ alert.severity }})<br>
+                    Od: {{ alert.startAt|date('d.m.Y H:i') }} do: {{ alert.endTime|date('d.m.Y H:i') }}
+                </li>
+            {% else %}
+                <li>Brak aktywnych alertów dla tego miasta.</li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}
