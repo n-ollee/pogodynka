@@ -1,0 +1,63 @@
+App\Entity\Location:
+    properties:
+        city:
+            - NotBlank:
+                  message: 'Nazwa miasta nie może być pusta.'
+            - Length:
+                  min: 2
+                  max: 255
+                  minMessage: 'Nazwa miasta musi mieć co najmniej 2 znaki.'
+                  groups: ['new', 'edit']
+        country:
+            - NotBlank:
+                  message: 'Wybierz kraj.'
+            - Choice:
+                  choices: ['PL', 'DE', 'GB', 'US', 'FR', 'IT']
+                  message: 'Wybierz poprawny kod kraju.'
+        latitude:
+            - NotBlank:
+                  message: 'Szerokość geograficzna jest wymagana.'
+                  groups: ['new']
+            - Range:
+                  min: -90
+                  max: 90
+                  notInRangeMessage: 'Szerokość musi mieścić się w przedziale -90 do 90.'
+        longitude:
+            - NotBlank:
+                  message: 'Długość geograficzna jest wymagana.'
+                  groups: ['new']
+            - Range:
+                  min: -180
+                  max: 180
+                  notInRangeMessage: 'Długość musi mieścić się w przedziale -180 do 180.'
+
+App\Entity\Measurement:
+    properties:
+        location:
+            - NotBlank:
+                  message: 'Wybór lokalizacji jest wymagany.'
+                  groups: ['new', 'edit']
+        date:
+            - NotBlank:
+                  message: 'Data jest wymagana.'
+                  groups: ['new']
+        celsius:
+            - NotBlank:
+                  message: 'Temperatura jest wymagana.'
+            - Range:
+                  min: -60
+                  max: 60
+                  notInRangeMessage: 'Temperatura musi wynosić od -60 do 60 °C.'
+                  groups: ['new', 'edit']
+        humidity:
+            - Range:
+                  min: 0
+                  max: 100
+                  notInRangeMessage: 'Wilgotność musi wynosić od 0 do 100%.'
+                  groups: ['edit']
+        pressure:
+            - Range:
+                  min: 800
+                  max: 1100
+                  notInRangeMessage: 'Ciśnienie musi wynosić od 800 do 1100 hPa.'
+                  groups: ['new', 'edit']

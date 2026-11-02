@@ -46,65 +46,6 @@ class Location
         $this->alerts = new ArrayCollection();
     }
 
-    /**
-     * @return Collection<int, Measurement>
-     */
-    public function getMeasurements(): Collection
-    {
-        return $this->measurements;
-    }
-
-    public function addMeasurement(Measurement $measurement): static
-    {
-        if (!$this->measurements->contains($measurement)) {
-            $this->measurements->add($measurement);
-            $measurement->setLocation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMeasurement(Measurement $measurement): static
-    {
-        if ($this->measurements->removeElement($measurement)) {
-            // set the owning side to null (unless already changed)
-            if ($measurement->getLocation() === $this) {
-                $measurement->setLocation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Alert>
-     */
-    public function getAlerts(): Collection
-    {
-        return $this->alerts;
-    }
-
-    public function addAlert(Alert $alert): static
-    {
-        if (!$this->alerts->contains($alert)) {
-            $this->alerts->add($alert);
-            $alert->setLocation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAlert(Alert $alert): static
-    {
-        if ($this->alerts->removeElement($alert)) {
-            // set the owning side to null (unless already changed)
-            if ($alert->getLocation() === $this) {
-                $alert->setLocation(null);
-            }
-        }
-
-        return $this;
-    }
     public function getId(): ?int
     {
         return $this->id;
@@ -139,7 +80,7 @@ class Location
         return $this->latitude;
     }
 
-    public function setLatitude(string $latitude): static
+    public function setLatitude(?string $latitude): static
     {
         $this->latitude = $latitude;
 
@@ -151,9 +92,67 @@ class Location
         return $this->longitude;
     }
 
-    public function setLongitude(string $longitude): static
+    public function setLongitude(?string $longitude): static
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Measurement>
+     */
+    public function getMeasurements(): Collection
+    {
+        return $this->measurements;
+    }
+
+    public function addMeasurement(Measurement $measurement): static
+    {
+        if (!$this->measurements->contains($measurement)) {
+            $this->measurements->add($measurement);
+            $measurement->setLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeasurement(Measurement $measurement): static
+    {
+        if ($this->measurements->removeElement($measurement)) {
+            if ($measurement->getLocation() === $this) {
+                $measurement->setLocation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Alert>
+     */
+    public function getAlerts(): Collection
+    {
+        return $this->alerts;
+    }
+
+    public function addAlert(Alert $alert): static
+    {
+        if (!$this->alerts->contains($alert)) {
+            $this->alerts->add($alert);
+            $alert->setLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlert(Alert $alert): static
+    {
+        if ($this->alerts->removeElement($alert)) {
+            if ($alert->getLocation() === $this) {
+                $alert->setLocation(null);
+            }
+        }
 
         return $this;
     }
