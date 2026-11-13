@@ -41,16 +41,14 @@ class MeasurementRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-    public function findByLocation(Location $location)
+    public function findByLocation(Location $location): array
     {
-        $qb = $this->createQueryBuilder('m');
-        $qb->where('m.location = :location')
+        return $this->createQueryBuilder('m')
+            ->where('m.location = :location')
             ->setParameter('location', $location)
-            ->andWhere('m.date > :now')
-            ->setParameter('now', date('Y-m-d'));
-
-        $query = $qb->getQuery();
-        return $query->getResult();
+            ->orderBy('m.date', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 }

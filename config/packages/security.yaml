@@ -34,6 +34,10 @@ security:
             - ROLE_MEASUREMENT_DELETE
             - ROLE_MEASUREMENT_EDIT
             - ROLE_MEASUREMENT_NEW
+            - ROLE_LOCATION_INDEX
+            - ROLE_MEASUREMENT_INDEX
+            - ROLE_MEASUREMENT_SHOW
+            - ROLE_LOCATION_SHOW
         ROLE_USER:
             - ROLE_LOCATION_INDEX
             - ROLE_MEASUREMENT_INDEX

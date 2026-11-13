@@ -41,4 +41,15 @@ class LocationRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function findByCountryAndCity(string $countryCode, string $city): ?Location
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.country = :country')
+            ->andWhere('l.city = :city')
+            ->setParameter('country', $countryCode)
+            ->setParameter('city', $city)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }
